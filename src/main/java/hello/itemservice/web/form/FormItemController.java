@@ -32,7 +32,10 @@ public class FormItemController {
     }
 
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        // 타임리프가 지원하는 폼 기능을 쓰려면 먼저 model을 하나 넘겨줘야 한다.
+        // 빈 아이템이라도 넘겨줘야 한다.
+        model.addAttribute("item", new Item());
         return "form/addForm";
     }
 
