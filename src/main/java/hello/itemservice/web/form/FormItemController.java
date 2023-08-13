@@ -1,5 +1,6 @@
 package hello.itemservice.web.form;
 
+import hello.itemservice.domain.item.DeliveryCode;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import hello.itemservice.domain.item.ItemType;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,21 @@ public class FormItemController {
         // 위 2줄 한줄로 합치기
         return ItemType.values();
     } // model.addAttribute("itemTypes", itemTypes); 와 같다.
+
+    // 셀렉트 박스
+    // DeliveryCode 라는 자바 객체를 사용하는 방법으로 진행
+    // @ModelAttribute는 메서드 호출할 때마다 deliveryCodes()가 호출이 된다. 그러면 객체가 계속 생성될거다.
+    // 예시는 단순하게 보여주기 위해 이러한 방식을 선택했지만 실제로는
+    // 미리 생성한 후 생성한 걸 불러 쓰는게 더 효율적이다. 메모리를 생성했다가 지웠다 안해도 되서 더 효율적인 거다.
+    // static식으로 만든 후에 공유해서 쓰는게 더 좋다.
+    @ModelAttribute("deliveryCodes")
+    public List<DeliveryCode> deliveryCodes() {
+        List<DeliveryCode> deliveryCodes = new ArrayList<>();
+        deliveryCodes.add(new DeliveryCode("FAST", "빠른 배송"));
+        deliveryCodes.add(new DeliveryCode("NORMAL", "일반 배송"));
+        deliveryCodes.add(new DeliveryCode("SLOW", "느린 배송"));
+        return deliveryCodes;
+    }
 
     @GetMapping
     public String items(Model model) {

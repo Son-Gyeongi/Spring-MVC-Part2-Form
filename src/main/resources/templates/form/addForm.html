@@ -38,7 +38,7 @@
             <input type="text" id="quantity" th:field="*{quantity}" class="form-control" placeholder="수량을 입력하세요">
         </div>
 
-        <hr class="my-4">
+        <hr class="my-4"> <!--줄선-->
 
         <!-- single checkbox -->
         <div>판매 여부</div>
@@ -82,6 +82,19 @@
                 </label>
             </div>
         </div>
+
+        <!-- SELECT -->
+        <div>
+            <div>배송 방식</div>
+<!--            th:field="*{deliveryCode}"는 Item의 th:field="*{deliveryCode}"이다.-->
+            <select th:field="*{deliveryCode}" class="form-select">
+<!--                <option value=""> : 아무것도 선택 안 하는 기본일 때 -->
+                <option value="">==배송 방식 선택==</option>
+                <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
+                        th:text="${deliveryCode.displayName}">FAST</option>
+            </select>
+        </div>
+        <hr class="my-4"> <!--줄선-->
 
         <div class="row">
             <div class="col">

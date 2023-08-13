@@ -79,6 +79,21 @@
         </div>
     </div>
 
+    <!-- SELECT -->
+    <div>
+        <div>배송 방식</div>
+        <!--            th:field="*{deliveryCode}"는 Item의 th:field="*{deliveryCode}"이다.-->
+        <select th:field="${item.deliveryCode}" class="form-select" disabled>
+            <!--                <option value=""> : 아무것도 선택 안 하는 기본일 때 -->
+            <option value="">==배송 방식 선택==</option>
+<!--            위 th:field="${item.deliveryCode}" 값이랑 th:value="${deliveryCode.code}"값을 타임리프가 비교해서
+                같은게 있으면 selected를 코드에 넣어준다. -->
+            <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
+                    th:text="${deliveryCode.displayName}">FAST</option>
+        </select>
+    </div>
+    <hr class="my-4">
+
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
