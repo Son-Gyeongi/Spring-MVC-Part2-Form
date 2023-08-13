@@ -2,6 +2,7 @@ package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.ItemType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,17 @@ public class FormItemController {
         regions.put("BUSAN", "부산");
         regions.put("JEJU", "제주");
         return regions;
-    }
+    } // model.addAttribute("regions", regions); 와 같다.
+
+    // 라디오 버튼, 무조건 하나가 선택이 되어서 히든 필드가 없다.(null이 넘어오는 경우가 없다.)
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemTypes() {
+        // ItemType.values()를 하면 enum파일에 있는 값들을 배열로 넘겨준다.
+//        ItemType[] values = ItemType.values();
+//        return values;
+        // 위 2줄 한줄로 합치기
+        return ItemType.values();
+    } // model.addAttribute("itemTypes", itemTypes); 와 같다.
 
     @GetMapping
     public String items(Model model) {
@@ -81,6 +92,8 @@ public class FormItemController {
         log.info("item.open = {}", item.getOpen());
         // regions 값이 잘 들어갔는지 확인
         log.info("item.regions = {}", item.getRegions());
+        // itemType 값이 잘 들어오는지 확인
+        log.info("item.itemType = {}", item.getItemType());
         
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());

@@ -9,4 +9,10 @@ public enum ItemType {
     ItemType(String description) {
         this.description = description;
     }
+
+    // 데이터를 읽을 수 있게 getter추가
+
+    public String getDescription() {
+        return description;
+    }
 }

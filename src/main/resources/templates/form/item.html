@@ -63,6 +63,22 @@
         </div>
     </div>
 
+    <!-- radio button -->
+    <div>
+        <div>상품 종류</div>
+        <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
+            <!--            th:object="${item}"가 없어서
+                            th:field="*{itemType} -> th:field="${item.itemType}"로 변경-->
+            <!--                th:value랑 item.itemType가 값이 같으면 checked표시 해준다.-->
+            <input type="radio" th:field="${item.itemType}" th:value="${type.name()}"
+                   class="form-check-input" disabled>
+            <label th:for="${#ids.prev('itemType')}" th:text="${type.description}"
+                   class="form-check-label">
+                BOOK
+            </label>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
